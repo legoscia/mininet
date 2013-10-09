@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Mininet : Emulator for rapid prototyping of Software Defined Networks" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Mininet</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/FlowForwarding/mininet">View on GitHub</a>
+
+          <h1 id="project_title">Mininet</h1>
+          <h2 id="project_tagline">Emulator for rapid prototyping of Software Defined Networks</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/FlowForwarding/mininet/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/FlowForwarding/mininet/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="mininet-rapid-prototyping-for-software-defined-networks" class="anchor" href="#mininet-rapid-prototyping-for-software-defined-networks"><span class="octicon octicon-link"></span></a>Mininet: Rapid Prototyping for Software Defined Networks</h1>
+
+<p><em>The best way to emulate almost any network on your laptop!</em></p>
+
+<p>Version 2.1.0</p>
+
+<h3>
+<a name="what-is-mininet" class="anchor" href="#what-is-mininet"><span class="octicon octicon-link"></span></a>What is Mininet?</h3>
+
+<p>Mininet emulates a complete network of hosts, links, and switches
+on a single machine.  To create a sample two-host, one-switch network,
+just run:</p>
+
+<p><code>sudo mn</code></p>
+
+<p>Mininet is useful for interactive development, testing, and demos,
+especially those using OpenFlow and SDN.  OpenFlow-based network
+controllers prototyped in Mininet can usually be transferred to
+hardware with minimal changes for full line-rate execution.</p>
+
+<h3>
+<a name="how-does-it-work" class="anchor" href="#how-does-it-work"><span class="octicon octicon-link"></span></a>How does it work?</h3>
+
+<p>Mininet creates virtual networks using process-based virtualization
+and network namespaces - features that are available in recent Linux
+kernels.  In Mininet, hosts are emulated as <code>bash</code> processes running in
+a network namespace, so any code that would normally run on a Linux
+server (like a web server or client program) should run just fine
+within a Mininet "Host".  The Mininet "Host" will have its own private
+network interface and can only see its own processes.  Switches in
+Mininet are software-based switches like Open vSwitch or the OpenFlow
+reference switch.  Links are virtual ethernet pairs, which live in the
+Linux kernel and connect our emulated switches to emulated hosts
+(processes).</p>
+
+<h3>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<p>Mininet includes:</p>
+
+<ul>
+<li><p>A command-line launcher (<code>mn</code>) to instantiate networks.</p></li>
+<li><p>A handy Python API for creating networks of varying sizes and
+topologies.</p></li>
+<li><p>Examples (in the <code>examples/</code> directory) to help you get started.</p></li>
+<li><p>Full API documentation via Python <code>help()</code> docstrings, as well as
+the ability to generate PDF/HTML documentation with <code>make doc</code>.</p></li>
+<li>
+<p>Parametrized topologies (<code>Topo</code> subclasses) using the Mininet
+object.  For example, a tree network may be created with the
+command:</p>
+
+<p><code>mn --topo tree,depth=2,fanout=3</code></p>
+</li>
+<li>
+<p>A command-line interface (<code>CLI</code> class) which provides useful
+diagnostic commands (like <code>iperf</code> and <code>ping</code>), as well as the
+ability to run a command to a node. For example,</p>
+
+<p><code>mininet&gt; h11 ifconfig -a</code></p>
+
+<p>tells host h11 to run the command <code>ifconfig -a</code></p>
+</li>
+<li>
+<p>A "cleanup" command to get rid of junk (interfaces, processes, files
+in /tmp, etc.) which might be left around by Mininet or Linux. Try
+this if things stop working!</p>
+
+<p><code>mn -c</code></p>
+</li>
+</ul><h3>
+<a name="new-features-in-210" class="anchor" href="#new-features-in-210"><span class="octicon octicon-link"></span></a>New features in 2.1.0</h3>
+
+<p>Mininet 2.1.0 provides a number of bug fixes as well as
+several new features, including:</p>
+
+<ul>
+<li>Convenient access to <code>Mininet()</code> as a dict of nodes</li>
+<li>X11 tunneling (wireshark in Mininet hosts, finally!)</li>
+<li>Accurate reflection of the <code>Mininet()</code> object in the CLI</li>
+<li>Automatically detecting and adjusting resource limits</li>
+<li>Automatic cleanup on failure of the <code>mn</code> command</li>
+<li>Preliminary support for running OVS in user space mode</li>
+<li>Preliminary support (<code>IVSSwitch()</code>) for the Indigo Virtual Switch</li>
+<li>support for installing the OpenFlow 1.3 versions of the reference
+user switch and NOX from CPqD</li>
+<li>The ability to import modules from <code>mininet.examples</code>
+</li>
+</ul><p>We have provided several new examples (which can easily be
+imported to provide useful functionality) including:</p>
+
+<ul>
+<li>Modeling separate control and data networks: <code>mininet.examples.controlnet</code>
+</li>
+<li>Connecting Mininet hosts the internet (or a LAN) using NAT: <code>mininet.examples.nat</code>
+</li>
+<li>Creating per-host custom directories using bind mounts: <code>mininet.examples.bind</code>
+</li>
+</ul><p>Note that examples contain experimental features which might
+"graduate" into mainline Mininet in the future, but they should 
+not be considered a stable part of the Mininet API!</p>
+
+<h3>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>See <code>INSTALL</code> for installation instructions and details.</p>
+
+<h3>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h3>
+
+<p>In addition to the API documentation (<code>make doc</code>), much useful
+information, including a Mininet walkthrough and an introduction
+to the Python API, is available on the
+<a href="http://mininet.org">Mininet Web Site</a>.
+There is also a wiki which you are encouraged to read and to
+contribute to, particularly the Frequently Asked Questions (FAQ.)</p>
+
+<h3>
+<a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h3>
+
+<p>Mininet is community-supported. We encourage you to join the
+Mininet mailing list, <code>mininet-discuss</code> at:</p>
+
+<p><a href="https://mailman.stanford.edu/mailman/listinfo/mininet-discuss">https://mailman.stanford.edu/mailman/listinfo/mininet-discuss</a></p>
+
+<h3>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h3>
+
+<p>Mininet is an open source project and is currently hosted
+at <a href="https://github.com/mininet">https://github.com/mininet</a>.  You are encouraged to download
+the code, examine it, modify it, and submit bug reports, bug fixes,
+feature requests, new features and other issues and pull requests.
+Thanks to everyone who has contributed to the project
+(see CONTRIBUTORS for more info!)</p>
+
+<p>Best wishes, and we look forward to seeing what you can do with
+Mininet to change the networking world!</p>
+
+<h3>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
+
+<p>The Mininet 2.1.0 Team:</p>
+
+<ul>
+<li>Bob Lantz</li>
+<li>Brian O'Connor</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mininet maintained by <a href="https://github.com/FlowForwarding">FlowForwarding</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-44706275-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
